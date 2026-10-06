@@ -1,0 +1,548 @@
+:root  {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --page: #c3c8c4;
+  --body: #dcddd8;
+  --body-hi: rgba(255, 255, 255, 0.65);
+  --well: rgba(0, 0, 0, 0.07);
+  --engrave: #6f736e;
+  --bezel: #2b2e30;
+  --lcd: #a9b49a;
+  --lcd-ink: #1f261a;
+  --lcd-dim: rgba(31, 38, 26, 0.5);
+  --lcd-rule: rgba(31, 38, 26, 0.22);
+  --lcd-edit: #1d4c7a;
+  --num: #f3f3ef;
+  --num-ink: #2b2e30;
+  --num-edge: #b3b5af;
+  --hexk: #cbd2d6;
+  --hexk-ink: #24292d;
+  --hexk-edge: #99a1a6;
+  --fn: #3a3f43;
+  --fn-ink: #e9ece6;
+  --fn-edge: #1e2124;
+  --stk: #6e7478;
+  --stk-ink: #f4f5f2;
+  --stk-edge: #4c5154;
+  --mcg: #a9a6a0;
+  --mcg-ink: #232425;
+  --mcg-edge: #7e7b76;
+  --op: #c08a22;
+  --op-ink: #1e1a12;
+  --op-edge: #87601a;
+  --ent: #2d5b86;
+  --ent-ink: #ffffff;
+  --ent-edge: #1b3c5b;
+  --focus: #2d5b86;
+  --hint: #4e534f;
+}
+
+@media (prefers-color-scheme: dark)  {
+  :root:not([data-theme="light"])  {
+    --page: #17191a;
+    --body: #2c2f31;
+    --body-hi: rgba(255, 255, 255, 0.08);
+    --well: rgba(0, 0, 0, 0.22);
+    --engrave: #949994;
+    --bezel: #111314;
+    --lcd: #8c987d;
+    --lcd-ink: #141910;
+    --lcd-dim: rgba(20, 25, 16, 0.55);
+    --lcd-rule: rgba(20, 25, 16, 0.25);
+    --lcd-edit: #0e3a66;
+    --num: #4a4e51;
+    --num-ink: #eef0ea;
+    --num-edge: #2a2d2f;
+    --hexk: #3a4247;
+    --hexk-ink: #dde4e8;
+    --hexk-edge: #1f2427;
+    --fn: #1f2224;
+    --fn-ink: #c9cdc7;
+    --fn-edge: #0d0e0f;
+    --stk: #555b5f;
+    --stk-ink: #eef0ea;
+    --stk-edge: #34383b;
+    --mcg: #7a7873;
+    --mcg-ink: #141516;
+    --mcg-edge: #4f4d49;
+    --op: #b07e1e;
+    --op-ink: #17130b;
+    --op-edge: #6e4f13;
+    --ent: #3a6f9e;
+    --ent-ink: #ffffff;
+    --ent-edge: #1f4366;
+    --focus: #8db7dd;
+    --hint: #9a9f9b;
+  }
+
+}
+
+:root[data-theme="dark"]  {
+  --page: #17191a;
+  --body: #2c2f31;
+  --body-hi: rgba(255, 255, 255, 0.08);
+  --well: rgba(0, 0, 0, 0.22);
+  --engrave: #949994;
+  --bezel: #111314;
+  --lcd: #8c987d;
+  --lcd-ink: #141910;
+  --lcd-dim: rgba(20, 25, 16, 0.55);
+  --lcd-rule: rgba(20, 25, 16, 0.25);
+  --lcd-edit: #0e3a66;
+  --num: #4a4e51;
+  --num-ink: #eef0ea;
+  --num-edge: #2a2d2f;
+  --hexk: #3a4247;
+  --hexk-ink: #dde4e8;
+  --hexk-edge: #1f2427;
+  --fn: #1f2224;
+  --fn-ink: #c9cdc7;
+  --fn-edge: #0d0e0f;
+  --stk: #555b5f;
+  --stk-ink: #eef0ea;
+  --stk-edge: #34383b;
+  --mcg: #7a7873;
+  --mcg-ink: #141516;
+  --mcg-edge: #4f4d49;
+  --op: #b07e1e;
+  --op-ink: #17130b;
+  --op-edge: #6e4f13;
+  --ent: #3a6f9e;
+  --ent-ink: #ffffff;
+  --ent-edge: #1f4366;
+  --focus: #8db7dd;
+  --hint: #9a9f9b;
+}
+
+*, *::before, *::after  {
+  box-sizing: inherit;
+}
+
+html  {
+  height: 100%;
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body  {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--body);
+  font-family: Archivo, "Helvetica Neue", Arial, system-ui, sans-serif;
+  display: grid;
+  place-items: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage  {
+  position: relative;
+}
+
+.device  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 390px;
+  padding: 12px 14px 14px;
+  transform-origin: 0 0;
+}
+
+/* Display */ .lcd  {
+  background: var(--lcd);
+  color: var(--lcd-ink);
+  border: 7px solid var(--bezel);
+  border-radius: 12px;
+  padding: 6px 12px 8px;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.28);
+  font-family: "Chivo Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+.status  {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  height: 18px;
+  color: var(--lcd-dim);
+}
+
+.status > span:first-child  {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status .err  {
+  color: var(--lcd-ink);
+  font-weight: 500;
+}
+
+.status .right  {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.status .tag  {
+  color: var(--lcd-ink);
+  font-weight: 500;
+}
+
+.reg  {
+  display: grid;
+  grid-template-columns: 1.6em minmax(0, 1fr);
+  align-items: baseline;
+  height: 28px;
+}
+
+.reg .name  {
+  font-size: 13px;
+  color: var(--lcd-dim);
+}
+
+.reg .val  {
+  text-align: right;
+  font-size: 21px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.reg .val::-webkit-scrollbar  {
+  display: none;
+}
+
+.reg.x  {
+  border-top: 1px dashed var(--lcd-rule);
+  margin-top: 4px;
+  padding-top: 4px;
+  height: 50px;
+}
+
+.reg.x .val  {
+  font-size: 33px;
+  font-weight: 500;
+}
+
+.reg .val.long  {
+  font-size: 16px;
+}
+
+.reg .val.xlong  {
+  font-size: 13px;
+}
+
+.reg.x .val.long  {
+  font-size: 23px;
+}
+
+.reg.x .val.xlong  {
+  font-size: 16px;
+}
+
+.reg .val.editing  {
+  color: var(--lcd-edit);
+}
+
+.cursor  {
+  display: inline-block;
+  width: 0.08em;
+  height: 0.9em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: -0.08em;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink  {
+  50%  {
+    opacity: 0;
+  }
+
+}
+
+/* Mode switch */ .modes  {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.seg  {
+  flex: 3;
+  display: flex;
+  gap: 4px;
+  background: var(--well);
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.seg.angle  {
+  flex: 2;
+}
+
+.mode  {
+  flex: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--engrave);
+  font: 700 13px/1 Archivo, Arial, sans-serif;
+  letter-spacing: 0.04em;
+  height: 30px;
+  border-radius: 7px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mode[aria-pressed="true"]  {
+  background: var(--bezel);
+  color: var(--lcd);
+}
+
+.mode:disabled  {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.mode:focus-visible  {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+/* Keys */ .keys  {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.hexrow  {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.key  {
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  height: 48px;
+  padding: 0;
+  min-width: 0;
+  font: 600 20px/1 Archivo, "Helvetica Neue", Arial, sans-serif;
+  background: var(--k-bg);
+  color: var(--k-ink);
+  box-shadow: 0 3px 0 var(--k-edge), 0 5px 8px -2px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 60ms ease-out, box-shadow 60ms ease-out, opacity 120ms;
+  user-select: none;
+}
+
+.key:active:not(:disabled), .key.pressed  {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--k-edge), 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.key:disabled  {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.key:focus-visible  {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.num  {
+  --k-bg: var(--num);
+  --k-ink: var(--num-ink);
+  --k-edge: var(--num-edge);
+}
+
+.hex  {
+  --k-bg: var(--hexk);
+  --k-ink: var(--hexk-ink);
+  --k-edge: var(--hexk-edge);
+  height: 40px;
+  font-size: 17px;
+}
+
+.fn  {
+  --k-bg: var(--fn);
+  --k-ink: var(--fn-ink);
+  --k-edge: var(--fn-edge);
+  font-size: 15px;
+  font-weight: 500;
+  height: 42px;
+}
+
+.stk  {
+  --k-bg: var(--stk);
+  --k-ink: var(--stk-ink);
+  --k-edge: var(--stk-edge);
+}
+
+.mcg  {
+  --k-bg: var(--mcg);
+  --k-ink: var(--mcg-ink);
+  --k-edge: var(--mcg-edge);
+}
+
+.op  {
+  --k-bg: var(--op);
+  --k-ink: var(--op-ink);
+  --k-edge: var(--op-edge);
+  font-size: 23px;
+}
+
+.ent  {
+  --k-bg: var(--ent);
+  --k-ink: var(--ent-ink);
+  --k-edge: var(--ent-edge);
+  font-size: 16px;
+  grid-column: span 2;
+}
+
+.sci  {
+  font-size: 18px;
+}
+
+.key.on  {
+  --k-bg: var(--op);
+  --k-ink: var(--op-ink);
+  --k-edge: var(--op-edge);
+}
+
+/* Memory registers */ .mem  {
+  height: 52px;
+  padding: 0 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: transparent;
+  color: var(--engrave);
+  border: 1.5px dashed var(--engrave);
+  box-shadow: none;
+}
+
+.mem:active:not(:disabled)  {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.mem .mname  {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.mem .mval  {
+  font: 400 11px/1 "Chivo Mono", Menlo, monospace;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mem.filled  {
+  background: var(--lcd);
+  color: var(--lcd-ink);
+  border: 1.5px solid var(--bezel);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.25);
+  align-items: stretch;
+  padding: 0 6px;
+}
+
+.mem.filled .mname  {
+  font-size: 10px;
+  text-align: left;
+  opacity: 0.65;
+}
+
+.mem.filled .mval  {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.keys.armed .mem  {
+  outline: 2px solid var(--op);
+  outline-offset: 2px;
+}
+
+.mc  {
+  height: 52px;
+}
+
+.hint  {
+  color: var(--hint);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  margin: 14px 0 0;
+  display: none;
+}
+
+.hint kbd  {
+  font-family: "Chivo Mono", Menlo, monospace;
+  font-size: 12px;
+}
+
+@media (hover: hover) and (pointer: fine)  {
+  .hint  {
+    display: block;
+  }
+
+}
+
+[hidden]  {
+  display: none !important;
+}
+
+.install  {
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin-top: 14px;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  border: 1.5px solid var(--focus);
+  border-radius: 10px;
+  color: var(--focus);
+  font: 600 15px/1 Archivo, "Helvetica Neue", Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.install:active  {
+  transform: translateY(1px);
+}
+
+.install:focus-visible  {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ios-hint  {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--hint);
+}
+
+@media (prefers-reduced-motion: reduce)  {
+  .cursor  {
+    animation: none;
+  }
+
+  .key  {
+    transition: none;
+  }
+
+}
