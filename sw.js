@@ -1,5 +1,5 @@
 // Bump this version whenever you change any app file, so installed copies update.
-const CACHE = 'rpn-calc-v3';
+const CACHE = 'rpn-calc-v';
 const SHELL = [
   './',
   './index.html',
