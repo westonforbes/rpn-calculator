@@ -68,8 +68,11 @@
     // Find the four memory buttons.
     const memBtns = [0, 1, 2, 3].map(i => document.querySelector('[data-k="mem' + i + '"]'));
 
-    // Find the scientific buttons that are disabled outside DEC mode.
-    const sciBtns = ['inv', 'sin', 'cos', 'tan', 'pi'].map(k => document.querySelector('[data-k="' + k + '"]'));
+    // Define the number of millimeters in one inch.
+    const MM_PER_IN = 25.4;
+
+    // Find the scientific and unit conversion buttons that are disabled outside DEC mode.
+    const sciBtns = ['inv', 'sin', 'cos', 'tan', 'pi', 'mm2in', 'in2mm'].map(k => document.querySelector('[data-k="' + k + '"]'));
 
     // Find every button that types a digit or a decimal point.
     const digitBtns = Array.from(document.querySelectorAll('[data-k]')).filter(b => /^[0-9A-F.]$/.test(b.dataset.k));
@@ -550,6 +553,36 @@
 
     /**
      * ### Description:
+     * This function converts the top stack value between millimeters and inches.
+     *
+     * ### Parameters:
+     * - `toInches`: A boolean that is true to convert millimeters to inches, and false to convert inches to millimeters.
+     *
+     * ### Returns:
+     * - Nothing. The function updates the top of the stack directly.
+     * - If the stack is empty, or the result is rejected, the function leaves the stack unchanged.
+     */
+    function convertLength(toInches) {
+
+        // Commit any number being typed so it counts as the top value.
+        commitEntry();
+
+        // If the stack is empty, stop, as there is no value to convert.
+        if (!need(1)) return;
+
+        // Get a reference to the stack.
+        const s = state.stack;
+
+        // Divide by 25.4 for millimeters to inches, or multiply by 25.4 for inches to millimeters, then check the result.
+        const x = s[s.length - 1];
+        const r = finish(toInches ? x / MM_PER_IN : x * MM_PER_IN);
+
+        // If the result is valid, replace the top value with it.
+        if (r !== null) s[s.length - 1] = r;
+    }
+
+    /**
+     * ### Description:
      * This function checks whether a key character is a valid digit in the current number mode.
      *
      * ### Parameters:
@@ -777,6 +810,19 @@
 
             // Implied else, apply the trig function, using the inverse form when it was active.
             else trig(k, inv);
+
+            // Redraw the display and stop.
+            return render();
+        }
+
+        // If the key is a length conversion key...
+        if (k === 'mm2in' || k === 'in2mm') {
+
+            // If the calculator is in HEX or BIN mode, whole numbers would make the conversion meaningless, so show an error.
+            if (isInt()) fail('Unit conversion works in DEC mode');
+
+            // Implied else, convert the top value in the chosen direction.
+            else convertLength(k === 'mm2in');
 
             // Redraw the display and stop.
             return render();
